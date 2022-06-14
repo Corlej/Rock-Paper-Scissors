@@ -1,39 +1,59 @@
 let playerScore = 0
 let computerScore = 0
-let roundWinner = ''
+const buttons = document.querySelectorAll('input')
 
-function playRound(playerSelection, computerSelection) {
-    if (playerSelection === computerSelection) {
-        roundWinner = 'tie'
-    }
-    if (
-        (playerSelection === 'Rock' && computerSelection === 'Scissors') ||
-        (playerSelection === 'Paper' && computerSelection === 'Rock') ||
-        (playerSelection === 'Scissors' && computerSelection === 'Paper')
-    ) {
-        playerScore++
-        roundWinner = 'player'
-    }
-    if (
-        (computerSelection === 'Rock' && playerSelection === 'Scissors') ||
-        (computerSelection === 'Paper' && playerSelection === 'Rock') ||
-        (computerSelection === 'Scissors' && playerSelection === 'Paper')
-    ) {
-        computerScore++
-        roundWinner = 'computer'
-    }
-    updateScoreMessage(roundWinner, playerSelection, computerSelection)
+function computerPlay () {
+    let choices = ['rock', 'paper', 'scissors']
+    return choices [Math.floor(Math.random() * 3)]
 }
 
+function disableButtons() {
+    buttons.forEach(elem => {
+        elem.disabled = true
+    })
+}
 
-//html references start here
+function playRound(playerSelection) {
+    let computerSelection = computerPlay()
+    let result = ""
+
+    if ((playerSelection == 'rock' && computerSelection == 'scissors') ||
+        (playerSelection == 'paper' && computerSelection == 'rock') ||
+        (playerSelection == 'scissors' && computerSelection == 'paper')) {
+
+        playerScore += 1
+        result = ('You win the round! ' +  capitalizeFirstLetter(playerSelection) + ' beats ' + computerSelection + '.'
+        + "<br><br>Player Score: " + playerScore + "<br>Computer Score: " + computerScore)
+    
+        if (playerScore == 5) {
+            result += '<br><br>You win the game! Reload the page to play again'
+            disableButtons()
+        }
+}
+    else if (playerSelection == computerSelection) {
+        result = ('It\'s a tie. You both chose ' + playerSelection + '.'
+            + '<br><br>Player Score: ' + playerScore + '<br>Computer Score: ' + computerScore)
+    }
+    else {
+        computerScore += 1
+        result = ('You lose this round! ' +  capitalizeFirstLetter(computerSelection) + ' beats ' + playerSelection + '.'
+            + '<br><br>Player Score: ' + playerScore + '<br>Computer Score: ' + computerScore)
         
-    //document.getElementbyId go here
+        if (computerScore == 5) {
+            result += '<br><br> You have lost the game! Reload the page to play again!'
+            disableButtons()
+        }
+    }
 
-    //button inputs so use an addEventListener 
+    document.getElementById('result').innerHTML = result
+    return
+}
 
-//html references end here
-
-
-//consider writing the code as if player wins, else tie, else lose function for playRound
-
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
+  }
+buttons.forEach(button =>{
+    button.addEventListener('click', function(){
+        playRound(button.value)
+    })
+})

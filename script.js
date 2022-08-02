@@ -1,23 +1,27 @@
 
 // Start button transition to game start
-let title = document.querySelector ("#title");
-let subtitle = document.querySelector("#subtitle");
-let startContainer = document.getElementById ('container');
-let startBtn = document.querySelector("#startbutton");
+let title = document.querySelector (".title");
+let subtitle = document.querySelector(".subtitle");
+let btnContainer = document.querySelector ('.btncontainer');
+let startBtn = document.querySelector(".startbutton");
 
+//creates a gameboard
+let gameboard = document.createElement('div');
+document.body.insertBefore(gameboard, btnContainer);
+gameboard.classList.add('gameboard');
 
 startBtn.addEventListener('click', function (){
     startBtn.parentNode.removeChild(startBtn);
+    subtitle.parentNode.removeChild(subtitle);
     title.innerText = 'CHOOSE YOUR WEAPON';
-    subtitle.innerText = '';
 
-//creates a gameboard
-    let gameboard = document.createElement('div');
-    document.body.insertBefore(gameboard, container);
-    gameboard.classList.add('gameboard');
+//creates a replay button
+
+    let restartBtn = document.createElement('input')
+    restartBtn.type = 'button';
 
 //splits the gameboard between player and computer
-    let playerboard = ["playerside", "computerside"];
+    let playerboard = ["playergameboard", "computergameboard"];
 
     playerboard.forEach(playerboard=> {
         let divider = document.createElement('div');
@@ -28,36 +32,54 @@ startBtn.addEventListener('click', function (){
     });
 
 //adds divs to the playerside
-    let playerSide = document.querySelector('.playerside');
-
+    let playerGameboard = document.querySelector('.playergameboard');
     let playerText = document.createElement('div');
-    playerSide.appendChild(playerText);
-    playerText.classList.add('playertext');
+    playerGameboard.appendChild(playerText);
     playerText.innerText = 'PLAYER';
 
-    let playerImg = document.createElement('div');
-    playerSide.appendChild(playerImg);
+    playerText.classList.add('playertext');
+    
+    let playerSelectandLife = document.createElement('div');
+    playerGameboard.appendChild(playerSelectandLife);
+    playerSelectandLife.classList.add('playerselectandlife');
+    
+    let computerSelectandLife = document.createElement('div');
+    computerSelectandLife.classList.add('computerselectandlife');
+
+    let playerImgContainer = document.createElement('div');
+    playerImgContainer.classList.add('playerimgcontainer');
+    playerSelectandLife.appendChild(playerImgContainer);
+
+    let playerImg = document.createElement('img');
     playerImg.classList.add('playerimg');
+    playerImgContainer.appendChild(playerImg);
 
     let playerLifebar = document.createElement('div');
-    playerSide.appendChild(playerLifebar);
-    playerLifebar.classList.add('playerLifebar');
+    playerSelectandLife.appendChild(playerLifebar);
+    playerLifebar.classList.add('playerlifebar');
 
 //adds divs to the computerside
-    let computerSide = document.querySelector('.computerside');
+    let computerGameboard = document.querySelector('.computergameboard');
 
     let computerText = document.createElement('div');
-    computerSide.appendChild(computerText);
+    computerGameboard.appendChild(computerText);
     computerText.classList.add('computertext');
     computerText.innerText = 'COMPUTER';
 
-    let computerImg = document.createElement('div');
-    computerSide.appendChild(computerImg);
+    computerGameboard.appendChild(computerSelectandLife);
+
+    let computerImgContainer = document.createElement('div');
+    computerImgContainer.classList.add ('computerimgcontainer');
+    computerSelectandLife.appendChild(computerImgContainer)
+
+    let computerImg = document.createElement('img');
     computerImg.classList.add('computerimg');
+    computerImgContainer.appendChild(computerImg);
+
 
     let computerLifebar = document.createElement('div');
-    computerSide.appendChild(computerLifebar);
-    computerLifebar.classList.add('computerLifebar');
+    computerSelectandLife.appendChild(computerLifebar);
+    computerLifebar.classList.add('computerlifebar');
 
 
 //creates player selection buttons
@@ -72,7 +94,7 @@ startBtn.addEventListener('click', function (){
         }
         selectionBtn.setAttribute('value', playerSelection);
         selectionBtn.innerHTML = playerSelection;
-        container.appendChild(selectionBtn);
+        btnContainer.appendChild(selectionBtn);
         console.dir
     });
 
@@ -83,17 +105,20 @@ startBtn.addEventListener('click', function (){
         let playerHealthpool = [ 1, 2, 3, 4, 5]
         for (var i = playerHealthpool.length; i > 0; i--){
             let playerLife = document.createElement('img');
-            playerLife.src = "./heart-full.png";
+            playerLife.src = "./images/heart-full.png";
             playerLifebar.appendChild(playerLife);
             playerLife.classList.add('playerHeart' + i);
+            playerLife.setAttribute('id', 'hearts')
         }
 
         let computerHealthpool = [ 1, 2, 3, 4, 5]
         for (var i = computerHealthpool.length; i > 0; i--){
             let computerLife = document.createElement('img');
-            computerLife.src = "./heart-full.png";
+            computerLife.src = "./images/heart-full.png";
             computerLifebar.appendChild(computerLife);
             computerLife.classList.add('computerHeart' + i);
+            computerLife.setAttribute('id', 'hearts')
+
         }
     // button event listener for playRound
 
@@ -133,202 +158,207 @@ startBtn.addEventListener('click', function (){
         const paperSelected = document.querySelector('.paperbtn');
         const scissorsSelected = document.querySelector('.scissorsbtn');
         const heartEmpty = document.createElement('img');
-        heartEmpty.src = './heart-empty.png';
+        heartEmpty.src = './images/heart-empty.png';
          
 
         //computer selections
         if (computerSelection == 'Rock') {
-            computerImg.innerHTML = 'Rock';
+            computerImg.src = "./images/rock.png";
         }
         else if (computerSelection == 'Paper') {
-            computerImg.innerHTML = 'Paper';
+            computerImg.src = "./images/paper.png";
         }
-        else computerImg.innerHTML = 'Scissors';
+        else 
+            computerImg.src = "./images/scissors.png"
+
         
         // logic if player selects rock
         if (playerSelection == 'Rock') {
-            playerImg.innerHTML = 'Rock'
+            playerImg.src = "./images/rock.png"
             if (computerSelection == 'Rock') {
-                title.innerText = 'It was a draw!';
+                title.innerText = 'It was a draw! Try again!';
             }
             else if (computerSelection == 'Scissors') {
-                title.innerText = playerSelection + ' beats ' + computerSelection + '!'
-                subtitle.innerText = 'The computer took 1 damage!'
+                title.innerText = playerSelection + ' beats ' + computerSelection + '!' + ' The computer took 1 damage!'
                 computerScore--;
                 if (computerScore == 4) {
                     const computerHealthOne = document.querySelector('.computerHeart1')
-                    computerHealthOne.src = './heart-empty.png'
+                    computerHealthOne.src = './images/heart-empty.png'
                 }
                 else if (computerScore == 3) {
                     const computerHealthTwo = document.querySelector('.computerHeart2')
-                    computerHealthTwo.src = './heart-empty.png'
+                    computerHealthTwo.src = './images/heart-empty.png'
                 }
                 else if (computerScore == 2) {
                     const computerHealthThree = document.querySelector('.computerHeart3')
-                    computerHealthThree.src = './heart-empty.png'
+                    computerHealthThree.src = './images/heart-empty.png'
                 }
                 else if (computerScore == 1) {
                     const computerHealthFour = document.querySelector('.computerHeart4')
-                    computerHealthFour.src = './heart-empty.png'
+                    computerHealthFour.src = './images/heart-empty.png'
                 }
                 else if (computerScore == 0) {
                     const computerHealthFive = document.querySelector('.computerHeart5')
-                    computerHealthFive.src = './heart-empty.png'
+                    computerHealthFive.src = './images/heart-empty.png'
                     title.innerText = 'The computer has been defeated! You win!'
                 }
             }
             else if (computerSelection == 'Paper') {
-                title.innerText = computerSelection + ' beats ' + playerSelection + '!'
-                subtitle.innerText = 'You took 1 damage!'
+                title.innerText = computerSelection + ' beats ' + playerSelection + '!' + ' You took 1 damage!'
                 playerScore--;
                 if (playerScore == 4) {
                     const playerHealthOne = document.querySelector('.playerHeart1')
-                    playerHealthOne.src = './heart-empty.png'
+                    playerHealthOne.src = './images/heart-empty.png'
                 }
                 else if (playerScore == 3) {
                     const playerHealthTwo = document.querySelector('.playerHeart2')
-                    playerHealthTwo.src = './heart-empty.png'
+                    playerHealthTwo.src = './images/heart-empty.png'
                 }
                 else if (playerScore == 2) {
                     const playerHealthThree = document.querySelector('.playerHeart3')
-                    playerHealthThree.src = './heart-empty.png'
+                    playerHealthThree.src = './images/heart-empty.png'
                 }
                 else if (playerScore == 1) {
                     const playerHealthFour = document.querySelector('.playerHeart4')
-                    playerHealthFour.src = './heart-empty.png'
+                    playerHealthFour.src = './images/heart-empty.png'
                 }
                 else {
                     const playerHealthFive = document.querySelector('.playerHeart5')
-                    playerHealthFive.src = './heart-empty.png'
-                    title.innerText = 'Your health has fallen to 0. You lose!'
+                    playerHealthFive.src = './images/heart-empty.png'
+                    title.innerText = 'Your health has fallen to 0! You lose!'
                 }
             }
         }
 
         //logic if player selects paper
         else if (playerSelection == 'Paper') {
-            playerImg.innerHTML = 'Paper'
+            playerImg.src = "./images/paper.png"
             if (computerSelection == 'Paper') {
-                title.innerText = 'Draw!';
+                title.innerText = 'Draw! Try again!';
             }
             else if (computerSelection == 'Rock') {
-                title.innerText = playerSelection + ' beats ' + computerSelection + '!'
-                subtitle.innerText = 'The computer took 1 damage!'
+                title.innerText = playerSelection + ' beats ' + computerSelection + '!' + ' The computer took 1 damage!'
                 computerScore--;
                 if (computerScore == 4) {
                     const computerHealthOne = document.querySelector('.computerHeart1')
-                    computerHealthOne.src = './heart-empty.png'
+                    computerHealthOne.src = './images/heart-empty.png'
                 }
                 else if (computerScore == 3) {
                     const computerHealthTwo = document.querySelector('.computerHeart2')
-                    computerHealthTwo.src = './heart-empty.png'
+                    computerHealthTwo.src = './images/heart-empty.png'
                 }
                 else if (computerScore == 2) {
                     const computerHealthThree = document.querySelector('.computerHeart3')
-                    computerHealthThree.src = './heart-empty.png'
+                    computerHealthThree.src = './images/heart-empty.png'
                 }
                 else if (computerScore == 1) {
                     const computerHealthFour = document.querySelector('.computerHeart4')
-                    computerHealthFour.src = './heart-empty.png'
+                    computerHealthFour.src = './images/heart-empty.png'
                 }
                 else if (computerScore == 0) {
                     const computerHealthFive = document.querySelector('.computerHeart5')
-                    computerHealthFive.src = './heart-empty.png'
+                    computerHealthFive.src = './images/heart-empty.png'
                     title.innerText = 'The computer has been defeated! You win!'
                 }
             }
             else if (computerSelection == 'Scissors') {
-                title.innerText = computerSelection + ' beats ' + playerSelection + '!'
-                subtitle.innerText = 'You took 1 damage!'
+                title.innerText = computerSelection + ' beats ' + playerSelection + '!' + ' You took 1 damage!'
                 playerScore--;
                 if (playerScore == 4) {
                     const playerHealthOne = document.querySelector('.playerHeart1')
-                    playerHealthOne.src = './heart-empty.png'
+                    playerHealthOne.src = './images/heart-empty.png'
                 }
                 else if (playerScore == 3) {
                     const playerHealthTwo = document.querySelector('.playerHeart2')
-                    playerHealthTwo.src = './heart-empty.png'
+                    playerHealthTwo.src = './images/heart-empty.png'
                 }
                 else if (playerScore == 2) {
                     const playerHealthThree = document.querySelector('.playerHeart3')
-                    playerHealthThree.src = './heart-empty.png'
+                    playerHealthThree.src = './images/heart-empty.png'
                 }
                 else if (playerScore == 1) {
                     const playerHealthFour = document.querySelector('.playerHeart4')
-                    playerHealthFour.src = './heart-empty.png'
+                    playerHealthFour.src = './images/heart-empty.png'
                 }
                 else {
                     const playerHealthFive = document.querySelector('.playerHeart5')
-                    playerHealthFive.src = './heart-empty.png'
-                    title.innerText = 'Your health has fallen to 0. You lose!'
+                    playerHealthFive.src = './images/heart-empty.png'
+                    title.innerText = 'Your health has fallen to 0! You lose!'
                 }
             }
         }
         else if (playerSelection  == 'Scissors') {
-            playerImg.innerHTML = 'Scissors'
+            playerImg.src = "./images/scissors.png"
             if (computerSelection == 'Scissors') {
-                title.innerText = 'Draw!';
+                title.innerText = 'Draw! Try again!';
             }
             else if (computerSelection == 'Rock'){
-                title.innerText = playerSelection + ' beats ' + computerSelection + '!'
-                subtitle.innerText = 'The computer took 1 damage!'
+                title.innerText = playerSelection + ' beats ' + computerSelection + '!' + ' The computer took 1 damage!'
                 computerScore--;
                 if (computerScore == 4) {
                     const computerHealthOne = document.querySelector('.computerHeart1')
-                    computerHealthOne.src = './heart-empty.png'
+                    computerHealthOne.src = './images/heart-empty.png'
                 }
                 else if (computerScore == 3) {
                     const computerHealthTwo = document.querySelector('.computerHeart2')
-                    computerHealthTwo.src = './heart-empty.png'
+                    computerHealthTwo.src = './images/heart-empty.png'
                 }
                 else if (computerScore == 2) {
                     const computerHealthThree = document.querySelector('.computerHeart3')
-                    computerHealthThree.src = './heart-empty.png'
+                    computerHealthThree.src = './images/heart-empty.png'
                 }
                 else if (computerScore == 1) {
                     const computerHealthFour = document.querySelector('.computerHeart4')
-                    computerHealthFour.src = './heart-empty.png'
+                    computerHealthFour.src = './images/heart-empty.png'
                 }
                 else if (computerScore == 0) {
                     const computerHealthFive = document.querySelector('.computerHeart5')
-                    computerHealthFive.src = './heart-empty.png'
+                    computerHealthFive.src = './images/heart-empty.png'
                     title.innerText = 'The computer has been defeated! You win!'
                 }
             }
             else if (computerSelection == 'Paper') {
-                title.innerText = computerSelection + ' beats ' + playerSelection + '!'
-                subtitle.innerText = 'You took 1 damage!'
+                title.innerText = computerSelection + ' beats ' + playerSelection + '!' + ' You took 1 damage!'
                 playerScore--;
                 if (playerScore == 4) {
                     const playerHealthOne = document.querySelector('.playerHeart1')
-                    playerHealthOne.src = './heart-empty.png'
+                    playerHealthOne.src = './images/heart-empty.png'
                 }
                 else if (playerScore == 3) {
                     const playerHealthTwo = document.querySelector('.playerHeart2')
-                    playerHealthTwo.src = './heart-empty.png'
+                    playerHealthTwo.src = './images/heart-empty.png'
                 }
                 else if (playerScore == 2) {
                     const playerHealthThree = document.querySelector('.playerHeart3')
-                    playerHealthThree.src = './heart-empty.png'
+                    playerHealthThree.src = './images/heart-empty.png'
                 }
                 else if (playerScore == 1) {
                     const playerHealthFour = document.querySelector('.playerHeart4')
-                    playerHealthFour.src = './heart-empty.png'
+                    playerHealthFour.src = './images/heart-empty.png'
                 }
                 else {
                     const playerHealthFive = document.querySelector('.playerHeart5')
-                    playerHealthFive.src = './heart-empty.png'
-                    title.innerText = 'Your health has fallen to 0. You lose!'
+                    playerHealthFive.src = './images/heart-empty.png'
+                    title.innerText = 'Your health has fallen to 0! You lose!'
+                    
                 }
             }
         }
         
-        //disable buttons
+        //restart button
         if (computerScore === 0 || playerScore === 0) {
             document.getElementById("selectionbtnrock").disabled = true;
             document.getElementById("selectionbtnpaper").disabled = true;
             document.getElementById("selectionbtnscissors").disabled = true;
-        }
+
+            btnContainer.parentNode.insertBefore(restartBtn, btnContainer.nextSibling);
+            restartBtn.classList.add('restart');
+            restartBtn.setAttribute('value', 'Play again?');
+            document.addEventListener("click", restartBtnListener);
+            function restartBtnListener(event) {
+                location.reload();
+            }
+        }        
     }
 //closing brackets to first event listener 
 });

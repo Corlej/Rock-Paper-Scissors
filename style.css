@@ -1,99 +1,320 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
-#titlecontainer {
-    font-family: 'VT323', monospace;
-    text-align: center;
-    height: 120px;
-}
+body {
+    height: 90vp;
+    margin: 0;
+    }
 
-#title {
-    font-size: 4em;
-    margin: auto;
-}
-
-#container {
+.titlecontainer {
     display: flex;
-    justify-content: space-around;
-    margin: 10px 40px;
-}
-
-.input,
-.button {
-    font-family: 'VT323', monospace;
-    border: none;
-    border-radius: 10px;
-    font-size: 2em;
-    width: 30%;
-    height: 40px;
-    margin-top: 100px
-}
-
-.gameboard {
-    display: flex;
-    height: 400px;
-    width: 100%;
-}
-
-.playertext {
-    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     font-family: 'VT323', monospace;
-    font-weight: bold;
-    font-size: 4vh;
-    height: 20%;
+    height: auto;
+    width: auto;
+    padding: 5vw 2vw 4vw 2vw;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4vw;
+    text-align: center;
+    margin: auto;
+    height: 5vw;
     width: 100%;
 }
 
-.playerside,
-.computerside {
-    height: 100%;
-    width: 50%;
+.subtitle {
+    padding: 0; 
+}
+.gameboard {
+    display: flex;
+    height: 90vp;
 }
 
-.computerimg,
-.playerimg {
+.btncontainer {
+    display: flex;    
+    justify-content: space-around;
+    align-items: center;
+    padding: 3vw 32vw;
+}
+
+input,
+button {
+    font-family: 'VT323', monospace;
+    border: none;
+    border-radius: 20px;
+    font-size: 2vw;
+    width: 10vw;
+    height: 4vw;
+}
+
+.restart {
     display: flex;
     justify-content: center;
-    align-items: centergit;
-    height: 60%;
-    width: 100%;
+    align-items: center;
+    text-align: center;
+    width: 12vw;
+    margin: auto;
 }
 
+h2 {
+    font-family: 'VT323', monospace;
+    text-align: center;
+    font-size: 2vw;
+    padding-top: 2vw;
+}
+#tbName {
+    margin-bottom: 3vw;
+    border-radius: 0px;
+    padding-left: 1vw;
+}
+
+.playertext,
 .computertext {
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'VT323', monospace;
     font-weight: bold;
-    font-size: 4vh;
-    height: 20%;
+    font-size: 3vw;
+    height: 10vp;
+}
+.playerselectandlife,
+.computerselectandlife {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: auto;
+}
+
+.playergameboard,
+.computergameboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: auto;
     width: 100%;
 }
 
-.playerLifebar,
-.computerLifebar {
+.playerimgcontainer,
+.computerimgcontainer {
+    display: flex;
+    border-style: solid;
+    border-color: white;
+    justify-content: center;
+    align-content: center;
+    height: auto;
+    width: 40%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.computerimg,
+.playerimg {
+    aspect-ratio: 1/1;
+    display: flex;
+    border: 0;
+    justify-content: center;
+    align-self: flex-end;
+    height: auto;
+    width: 100%;
+}
+
+.playerlifebar,
+.computerlifebar {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
-    height: 20%;
-    padding-right: 3%;
+    height: auto;
+    width: 60%;
+}
+
+#hearts {
+    max-width: 20%;
 }
 
 .lifebarcontainer {
     display: flex;
     height: 100%;
     margin-left: auto;
-    width: 100%;
 }
 
 img {
-    max-height: 80%;
-    max-width: auto;
+    height: auto;
+    width: 100%;
     padding: 0% 1%;
 }
 
-input {
-    margin-top: 10%;
+@media (max-width: 450px) {
+
+    .titlecontainer {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'VT323', monospace;
+        height: auto;
+        width: auto;
+        padding: 5vw 2vw;
+    }
+
+    .title {
+        font-size: 8vw;
+        text-align: center;
+        margin: auto;
+        height: 20vw;
+        width: 100%;
+    }
+    .subtitle {
+        font-size: 4vw;
+        padding-bottom: -2vw;
+    }
+
+    .btncontainer {
+        padding-top: 3%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .restart {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 70vw;
+    }
+
+    input {
+        font-size: 4vw;
+        line-height: 0px;
+        padding: 3%;
+        margin: 3%;
+        height: 10vw;
+        width: 70vw;
+    }
+
+    .playerimgcontainer,
+    .computerimgcontainer {
+        display: flex;
+        border-style: solid;
+        border-color: white;
+        justify-content: center;
+        align-content: center;
+        height: auto;
+        width: 50%;
+        padding-top: 2%;
+        padding-bottom: 2%;
+    }
+
+    .playerlifebar,
+    .computerlifebar {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        height: auto;
+        width: 70%;
+    }
+
+}
+
+@media (min-width: 1000px) {
+
+    .titlecontainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'VT323', monospace;
+        height: auto;
+        width: auto;
+        padding: 2vw 2vw 2vw 2vw;
+    }
+
+    .title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3vw;
+        text-align: center;
+        margin: auto;
+        height: 5vw;
+        width: 100%;
+    }
+    .subtitle {
+        text-align: center;
+        font-size: 2vw;
+    }
+
+    input,
+    button {
+        font-family: 'VT323', monospace;
+        border: none;
+        border-radius: 20px;
+        font-size: 2vw;
+        width: 10vw;
+        height: 4vw;
+    }
+
+    .btncontainer {
+        display: flex;    
+        justify-content: space-around;
+        align-items: center;
+        padding: 2vw 32vw;
+    }
+
+    .restart {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 2vw 32vw;
+        margin: auto;
+    }
+}
+
+@media (max-height: 600px) {
+
+    .titlecontainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'VT323', monospace;
+        height: auto;
+        width: auto;
+        padding: 1vw 2vw 2vw 1vw;
+    }
+
+    .gameboard {
+        display: flex;
+        justify-content: center;
+    }
+
+    .playergameboard,
+    .computergameboard {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: space-around;
+        height: auto;
+        width: 30vw;
+    }
+
+    .btncontainer {
+        display: flex;    
+        justify-content: space-around;
+        align-items: center;
+        padding: 2vw 32vw;
+    }
+
+    .restart {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 2vw 32vw;
+        margin: auto;
+    }
 }

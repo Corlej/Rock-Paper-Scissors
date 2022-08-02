@@ -48,6 +48,7 @@ button {
     border: none;
     border-radius: 20px;
     font-size: 2vw;
+    color: black;
     width: 10vw;
     height: 4vw;
 }

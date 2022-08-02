@@ -15,8 +15,7 @@ startBtn.addEventListener('click', function (){
     subtitle.parentNode.removeChild(subtitle);
     title.innerText = 'CHOOSE YOUR WEAPON';
 
-//creates a replay button
-
+//creates a restart button
     let restartBtn = document.createElement('input')
     restartBtn.type = 'button';
 
@@ -360,5 +359,4 @@ startBtn.addEventListener('click', function (){
             }
         }        
     }
-//closing brackets to first event listener 
 });

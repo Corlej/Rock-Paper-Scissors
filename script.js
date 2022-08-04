@@ -291,7 +291,7 @@ startBtn.addEventListener('click', function (){
             if (computerSelection == 'Scissors') {
                 title.innerText = 'Draw! Try again!';
             }
-            else if (computerSelection == 'Rock'){
+            else if (computerSelection == 'Paper'){
                 title.innerText = playerSelection + ' beats ' + computerSelection + '!' + ' The computer took 1 damage!'
                 computerScore--;
                 if (computerScore == 4) {
@@ -316,7 +316,7 @@ startBtn.addEventListener('click', function (){
                     title.innerText = 'The computer has been defeated! You win!'
                 }
             }
-            else if (computerSelection == 'Paper') {
+            else if (computerSelection == 'Rock') {
                 title.innerText = computerSelection + ' beats ' + playerSelection + '!' + ' You took 1 damage!'
                 playerScore--;
                 if (playerScore == 4) {
